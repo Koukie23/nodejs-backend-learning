@@ -1,0 +1,23 @@
+{
+  "name": "01-node-basics",
+  "version": "1.0.0",
+  "description": "Node.js basics learning module",
+  "license": "ISC",
+  "author": "",
+  "type": "module",
+  "main": "http/index.js",
+  "scripts": {
+    "start": "nodemon --env-file=.env http/server2.js",
+    "server": "nodemon --env-file=.env http/server.js",
+    "demo:fs": "node basics/fsDemo.js",
+    "demo:path": "node basics/pathDemo.js",
+    "demo:os": "node basics/osDemo.js",
+    "demo:url": "node basics/urlDemo.js",
+    "demo:crypto": "node basics/cryptoDemo.js",
+    "demo:events": "node basics/eventsDemo.js",
+    "demo:process": "node basics/processDemo.js"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}
