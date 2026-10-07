@@ -1,5 +1,13 @@
 const express=require('express')
 const app=express()
+
+console.log('RUNNING FILE:', __filename);
+
+app.use((req, res, next) => {
+  console.log('REQUEST:', req.method, req.url);
+  next();
+});
+
 app.use(express.json())
 const contacts=[
     {id:1,name:'Amy'},
@@ -79,6 +87,32 @@ app.delete('/contacts/:id',(req,res)=>{
     contacts.splice(index,1);
     res.status(204).end();
 })
+
+app.get('/error',(req,res,next)=>{
+    const err=new Error('This is a test error');
+    next(err);
+});
+
+app.use((err,req,res,next)=>{
+    console.error(err.message)
+    res.status(500).json({
+        message:err.message
+    });
+});
+
+app.use((req,res,next)=>{
+    const err=new Error('Route not found')
+    err.status=404
+    next(err);
+})
+
+app.use((err,req,res,next)=>{
+    console.error(err.message)
+    const status=err.status||500
+    res.status(status).json({
+        message:err.message||'Internal Server Error'
+    });
+});
 
 app.listen(3000,()=>{
     console.log('Express server running at http://localhost:3000');
